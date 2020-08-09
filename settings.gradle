@@ -1,0 +1,4 @@
+rootProject.name = 'otus_homework_repo'
+include 'hw01-gradle'
+include 'hw02-generics'
+
