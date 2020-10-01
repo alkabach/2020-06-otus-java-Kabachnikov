@@ -6,8 +6,7 @@ public class DIYArrayList<E> implements List<E> {
   private E[] elements;
   private int size;
   private int cursor;
-
-  protected transient int modCount = 0;
+  
 
   public DIYArrayList() {
     elements = (E[]) new Object[0];
@@ -74,11 +73,27 @@ public class DIYArrayList<E> implements List<E> {
     return null;
   }
 
+//  @Override
+//  public boolean add(E e) {
+//    try{
+//      E[] tempStore = elements;
+//      elements = (E[]) new Object[tempStore.length + 1];
+//      System.arraycopy(tempStore,0, elements,0,tempStore.length);
+//      elements[tempStore.length] = e;
+//      size += 1;
+//    } catch(ClassCastException ex){
+//      ex.printStackTrace();
+//    }
+//    return false;
+//  }
+
   @Override
   public boolean add(E e) {
     try{
       E[] tempStore = elements;
-      elements = (E[]) new Object[tempStore.length + 1];
+      int prefCapacity = tempStore.length >> 1;
+//      elements = (E[]) new Object[prefCapacity];
+      elements = grow();
       System.arraycopy(tempStore,0, elements,0,tempStore.length);
       elements[tempStore.length] = e;
       size += 1;
